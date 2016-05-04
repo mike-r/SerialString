@@ -1,3 +1,5 @@
+
+
 void setup() {
   Serial.begin(9600);
   Serial.println("Enter a test NMEA String.");
@@ -5,6 +7,8 @@ void setup() {
 
 char rx_byte = 0;
 String rx_str = "";
+String checkSum = "";
+
 
 void loop() {
   if (Serial.available() > 0) {    // is a character available?
@@ -19,11 +23,14 @@ void loop() {
     }
     else {
       // end of string
-      Serial.print("Welcome ");
-      Serial.println(rx_str);
+      if (rx_str.charAt(0) == '$') {
+         Serial.print("NMEA String: ");
+         Serial.println(rx_str);
+      }
       rx_str = "";                // clear the string for reuse
       Serial.println("");
-      Serial.println("Enter your name.");
+      Serial.println("Enter a test NMEA String.");
     }
   } // end: if (Serial.available() > 0)
 }
+
